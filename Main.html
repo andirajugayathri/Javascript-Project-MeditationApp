@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditation App</title>
+    <style>
+        body {
+            background-image: url('MainImage.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 60px;
+            color: rgb(90, 87, 87);
+            padding-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            margin: 70px 0;
+            flex-wrap: wrap;
+        }
+        .menu h3 {
+            margin: 0 20px;
+            cursor: pointer;
+            padding: 10px 15px;
+            background-color: rgba(196, 135, 188, 0.6);
+            border-radius: 25px;
+            transition: background 0.3s ease;
+        }
+        .menu h3:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        .options {
+            background-color: #b4f8c8;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 90%;
+        }
+        .popup {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none; 
+        }
+        .popup-content {
+            background-color: #fb6090;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: fadeIn 0.3s ease; 
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #58abe5;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background-color: rgb(70, 70, 70);
+        }
+        
+        @media (max-width: 768px) {
+            .popup-content {
+                max-width: 300px; 
+                padding: 15px; 
+            }
+            .close {
+                top: 5px; 
+                right: 10px;
+            }
+        }
+        @media (max-width: 576px) {
+            body {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 40px;
+            }
+            .menu {
+                flex-direction: column;
+                align-items: center;
+            }
+            .menu h3 {
+                margin: 10px 0;
+                padding: 15px;
+                font-size: 18px;
+            }
+            .options {
+                padding: 15px;
+            }
+            .popup-content {
+                max-width: 90%; 
+                padding: 10px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>MEDITATION APP</h1>
+    <div class="options">
+        <h2>Welcome to the Meditation App!</h2>
+        <p>Select an option from the menu below to get started.</p>
+    </div>
+    <div class="menu">
+        <div>
+            <h3 onclick="navigate('Exercises.html');">Exercises</h3>
+        </div>
+        <div>
+            <h3 onclick="navigate('Relaxing sounds.html');" style="background-color: rgba(0, 200, 255, 0.6);">Relaxing Sounds</h3>
+        </div>
+        <div>
+            <h3 onclick="navigate('Binaural sounds.html');" style="background-color: rgba(255, 255, 0, 0.6);">Binaural Sounds</h3>
+        </div>
+    </div>
+
+    <div class="popup" id="userInfoPopup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2>User Information</h2>
+            <p id="userEmail"></p>
+            <p id="userPassword">Password: ********</p>
+        </div>
+    </div>
+
+    <div class="popup" id="alertPopup">
+        <div class="popup-content">
+            <span class="close" onclick="closeAlertPopup()">&times;</span>
+            <h2>Confirmation</h2>
+            <p id="alertMessage"></p>
+            <button onclick="confirmNavigation()">Yes</button>
+            <button onclick="closeAlertPopup()">No</button>
+        </div>
+    </div>
+
+    <div class="popup" id="loginAlertPopup">
+        <div class="popup-content">
+            <span class="close" onclick="closeLoginAlertPopup()">&times;</span>
+            <h2>Login Required</h2>
+            <p>Please log in to access the app.</p>
+        </div>
+    </div>
+
+    <script>
+        let targetUrl = '';
+
+        function navigate(url) {
+            targetUrl = url; 
+            document.getElementById('alertMessage').textContent = `Are you sure you want to go to the ${url.split('.')[0]} page?`;
+            document.getElementById('alertPopup').style.display = 'flex'; 
+        }
+
+        function confirmNavigation() {
+            location.href = targetUrl; 
+        }
+
+        function closePopup() {
+            document.getElementById('userInfoPopup').style.display = 'none';
+        }
+
+        function closeAlertPopup() {
+            document.getElementById('alertPopup').style.display = 'none'; // Hide the alert popup
+        }
+
+        function closeLoginAlertPopup() {
+            document.getElementById('loginAlertPopup').style.display = 'none'; // Hide the login alert popup
+        }
+
+        window.onload = function() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+
+            if (userData) {
+                const email = userData.email || "No email stored";
+                document.getElementById('userEmail').textContent = `Email: ${email}`;
+                document.getElementById('userInfoPopup').style.display = 'flex'; // Show the user info popup
+            } else {
+                document.getElementById('loginAlertPopup').style.display = 'flex'; // Show login alert popup
+            }
+        };
+    </script>
+</body>
+</html>

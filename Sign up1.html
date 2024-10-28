@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Meditation App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-image: url('ind1.png');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgb(219, 181, 195);
+            background-size: cover; 
+            background-position: center;
+        }
+        .signup-container {
+            background-image: url("ind2.png");
+            opacity:0.7;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #ff3d3d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #ff2a2a;
+        }
+
+        @media (max-width: 576px) {
+            body {
+                background-size: cover; 
+            }
+            .signup-container {
+                padding: 20px; 
+                max-width: 90%; 
+            }
+            input {
+                padding: 8px; 
+            }
+            button {
+                padding: 8px; 
+                font-size: 0.9em; 
+            }
+            h1 {
+                font-size: 2em; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Sign Up</h1>
+        <form id="signupForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="Email" required 
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                   title="Please enter a valid email address.">
+            <input type="password" id="password" placeholder="Password" required 
+                   pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}" 
+                   title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.">
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="index.html">Login</a></p>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            const userData = { name, email, password };
+            localStorage.setItem('userData', JSON.stringify(userData));
+            alert("Sign Up Successful!");
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

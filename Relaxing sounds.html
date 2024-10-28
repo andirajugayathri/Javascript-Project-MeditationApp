@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relaxing Sounds</title>
+    <style>
+        body {
+            background-image: url("https://cdn.pixabay.com/photo/2020/06/23/00/53/river-5330961_1280.jpg");
+            background-size: cover;
+            height: 100vh;
+            background-position: center;
+            color: black;
+            font-size: 20px;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: palevioletred;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .description {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: rgba(0, 0, 0, 0.8);
+        }
+        .card {
+            background-color: rgba(192, 255, 252, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            margin: auto;
+            margin-top: 90px;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 7px 25px;
+            background: linear-gradient(45deg, #c0e6e4, #8a8f62);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .back-button:hover {
+            background: linear-gradient(45deg, #f8a5c2, #ff6b6b);
+            transform: translateY(-2px);
+        }
+        .instructions {
+            margin-top: 20px;
+            font-size: 1em;
+            color: rgb(19, 18, 18);
+            text-align: left;
+            display: none; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        audio {
+            width: 98%; 
+            margin: 10px 0;
+        }
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 576px) {
+            body {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .description {
+                font-size: 1em;
+            }
+            .card {
+                margin-top: 60px;
+                padding: 15px;
+            }
+            .back-button {
+                width: 100%;
+                padding: 10px;
+                font-size: 1em;
+            }
+            audio {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Relaxing Sounds</h1>
+        <div class="description">A selection of soothing sounds to help you unwind.</div>
+        <div>
+            <select id="sounds" onchange="playSound()">
+                <option value="">Select Sound</option>
+                <option value="oceanwave.mp3">Nature Sounds</option>
+                <option value="White noise.mp3">White Noise</option>
+                <option value="calming music.mp3">Calming Music</option>
+                <option value="rain.mp3">Rain Sounds</option>
+                <option value="forest.mp3">Forest Ambience</option>
+                <option value="fireplace.mp3">Crackling Fireplace</option>
+                <option value="birdsong.mp3">Birdsong</option>
+                <option value="gentle piano.mp3">Gentle Piano</option>
+            </select>
+            <audio id="audioPlayer" controls style="display: none;"></audio>
+            <div class="instructions" id="soundInstructions">Select a sound to see instructions.</div>
+            <button class="back-button" onclick="location.href='Main.html'">Back to Menu</button>
+        </div>
+    </div>
+
+    <script>
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function playSound() {
+            const soundSelect = document.getElementById("sounds");
+            const audioPlayer = document.getElementById("audioPlayer");
+            const instructions = document.getElementById("soundInstructions");
+
+            instructions.innerHTML = ""; 
+
+            if (soundSelect.value === "oceanwave.mp3") {
+                audioPlayer.src = soundSelect.value;
+                audioPlayer.style.display = "block";
+                audioPlayer.play();
+                const instructionsList = [
+                    "Immerse yourself in the calming sound of ocean waves.",
+                    "Great for meditation and relaxation.",
+                    "Helps to reduce stress and anxiety.",
+                    "Ideal for background noise while studying or working.",
+                    "Feel the gentle rhythm of nature's embrace.",
+                    "Let your worries drift away with each wave.",
+                    "Reconnect with your inner peace.",
+                    "Enhance your focus while working.",
+                    "Perfect for bedtime relaxation.",
+                    "Allow yourself to simply be in the moment."
+                ];
+                displayInstructions(instructionsList);
+            } else if (soundSelect.value === "White noise.mp3") {
+                audioPlayer.src = soundSelect.value;
+                audioPlayer.style.display = "block";
+                audioPlayer.play();
+                const instructionsList = [
+                    "Creates a consistent sound environment.",
+                    "Helps to block out distractions and improve focus.",
+                    "Useful for sleeping or calming infants.",
+                    "Can be used to enhance privacy in noisy environments.",
+                    "Ideal for creating a peaceful workspace.",
+                    "Muffles unwanted sounds for better relaxation.",
+                    "Assists in developing a healthy sleep routine.",
+                    "Great for studying in noisy places.",
+                    "Helps reduce anxiety in stressful situations.",
+                    "Encourages a calm atmosphere wherever you are."
+                ];
+                displayInstructions(instructionsList);
+            } else if (soundSelect.value === "calming music.mp3") {
+                audioPlayer.src = soundSelect.value;
+                audioPlayer.style.display = "block";
+                audioPlayer.play();
+                const instructionsList = [
+                    "Soft melodies designed to soothe your mind.",
+                    "Perfect for yoga or mindfulness practices.",
+                    "Can help improve concentration and creativity.",
+                    "Promotes a peaceful atmosphere at home or work.",
+                    "Enhances your meditation experience.",
+                    "Supports emotional well-being.",
+                    "Ideal for unwinding after a long day.",
+                    "Helps set the mood for relaxation.",
+                    "Encourages positive thoughts and feelings.",
+                    "Allows you to connect with your emotions."
+                ];
+                displayInstructions(instructionsList);
+            } else if (soundSelect.value === "rain.mp3") {
+                audioPlayer.src = soundSelect.value;
+                audioPlayer.style.display = "block";
+                audioPlayer.play();
+                const instructionsList = [
+                    "Listen to the gentle sound of raindrops.",
+                    "Great for sleeping and relaxation.",
+                    "Creates a cozy atmosphere.",
+                    "Helps mask background noise.",
+                    "Ideal for reading or studying.",
+                    "Encourages feelings of comfort and security.",
+                    "Perfect for meditative practices.",
+                    "Let the rain wash your worries away.",
+                    "Imagine yourself in a serene environment.",
+                    "Take a moment to breathe deeply."
+                ];
+                displayInstructions(instructionsList);
+            } else if (soundSelect.value === "forest.mp3") {
+                audioPlayer.src = soundSelect.value;
+                audioPlayer.style.display = "block";
+                audioPlayer.play();
+                const instructionsList = [
+                    "Immerse yourself in the sounds of a forest.",
+                    "Ideal for grounding and connecting with nature.",
+                    "Enhances relaxation during meditation.",
+                    "Encourages a sense of peace and tranquility.",
+                    "Perfect background for creative work.",
+                    "Imagine walking through a lush forest.",
+                    "Helps to refresh your mind and spirit.",
+                    "Feel the embrace of nature.",
+                    "Great for visualizing calm landscapes.",
+                    "Take a moment to be present."
+                ];
+                displayInstructions(instructionsList);
+            } else if (soundSelect.value === "fireplace.mp3") {
+                audioPlayer.src = soundSelect.value;
+                audioPlayer.style.display = "block";
+                audioPlayer.play();
+                const instructionsList = [
+                    "Enjoy the warm crackling of a fireplace.",
+                    "Creates a cozy and inviting atmosphere.",
+                    "Perfect for relaxation on a cold day.",
+                    "Helps to reduce stress and anxiety.",
+                    "Enhances your reading or quiet time.",
+                    "Imagine sitting by a warm fire.",
+                    "Encourages feelings of comfort and safety.",
+                    "Ideal for unwinding after a long day.",
+                    "Let the warmth envelop you.",
+                    "Take a moment to reflect."
+                ];
+                displayInstructions(instructionsList);
+            } else if (soundSelect.value === "birdsong.mp3") {
+                audioPlayer.src = soundSelect.value;
+                audioPlayer.style.display = "block";
+                audioPlayer.play();
+                const instructionsList = [
+                    "Delight in the cheerful sounds of birds.",
+                    "Great for uplifting your mood.",
+                    "Enhances outdoor or indoor relaxation.",
+                    "Encourages a sense of happiness.",
+                    "Perfect for meditation or yoga.",
+                    "Imagine being in a sunny garden.",
+                    "Let the melodies inspire your creativity.",
+                    "Connect with nature's beauty.",
+                    "Great for background noise while working.",
+                    "Take a moment to enjoy the beauty of life."
+                ];
+                displayInstructions(instructionsList);
+            } else if (soundSelect.value === "gentle piano.mp3") {
+                audioPlayer.src = soundSelect.value;
+                audioPlayer.style.display = "block";
+                audioPlayer.play();
+                const instructionsList = [
+                    "Listen to soft piano melodies.",
+                    "Perfect for relaxation and reflection.",
+                    "Ideal for creating a calm atmosphere.",
+                    "Encourages emotional well-being.",
+                    "Great for background music while studying.",
+                    "Enhances meditation and mindfulness practices.",
+                    "Let the music guide your thoughts.",
+                    "Take a moment to unwind and breathe.",
+                    "Encourages positive emotions.",
+                    "Perfect for winding down at the end of the day."
+                ];
+                displayInstructions(instructionsList);
+            } else {
+                audioPlayer.pause();
+                audioPlayer.src = "";
+                audioPlayer.style.display = "none";
+            }
+        }
+
+        function displayInstructions(instructionsList) {
+            const instructions = document.getElementById("soundInstructions");
+            let index = 0;
+
+            function showNextInstruction() {
+                if (index < instructionsList.length) {
+                    instructions.innerHTML = <strong>${instructionsList[index]}</strong>;
+                    instructions.style.backgroundColor = getRandomColor(); 
+                    instructions.style.display = "block";
+                    index++;
+                    setTimeout(showNextInstruction, 10000); 
+                } else {
+                    instructions.style.display = "none"; 
+                }
+            }
+            showNextInstruction();
+        }
+    </script>
+</body>
+</html>

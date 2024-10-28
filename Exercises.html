@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditation App - Exercises</title>
+    <style>
+        body {
+            background-image: url('ExImg1.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #fff;
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+        h1 {
+            color: palevioletred;
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        h2 {
+            color: #ff6f61; 
+            font-size: 3em;
+            margin: 20px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        h3 {
+            color: #6bc4ff; 
+            font-size: 2em;
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        .card {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin: auto;
+        }
+        button {
+            background: linear-gradient(45deg, #6bc4ff, #a5f8f8);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s;
+            margin: 10px;
+        }
+        button:hover {
+            background: linear-gradient(45deg, #4a4e86, #6bb8ff);
+            transform: scale(1.05);
+        }
+        .dropdown {
+            cursor: pointer;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            background-color: rgb(252, 215, 167, 0.5);
+            width: 100%;
+            text-align: center;
+            display: none;
+        }
+        .dropdown div {
+            cursor: pointer;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .dropdown div:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        section {
+            display: none;
+            margin-top: 20px;
+        }
+        video {
+            width: 60%;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        ul {
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            list-style-type: none;
+        }
+        li {
+            margin: 15px 0;
+            padding: 12px;
+            transition: background 0.3s;
+            font-size: 1.1em;
+            border-radius: 12px;
+            background-color: black;
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        li.show {
+            display: list-item;
+        }
+        li:hover {
+            background: white;
+            color:black;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("ExImg2.png");
+            z-index: -1;
+            /* animation: gradient 3s ease infinite; */
+            display: none; 
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding: 20px;
+                font-size: 16px;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            h2 {
+                font-size: 2em;
+            }
+            h3 {
+                font-size: 1.5em;
+            }
+            button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            video {
+                width: 100%;
+            }
+            ul {
+                padding: 10px;
+            }
+            li {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background" id="secondImage"></div>
+    <div class="card">
+        <h1>Meditation App Exercises</h1>
+        <div class="description">Guided exercises to enhance your meditation practice.</div>
+        <button onclick="toggleDropdown()">Select Exercise</button>
+        <div class="dropdown" id="exerciseDropdown"></div>
+        <button onclick="window.location.href='Main.html'">Back to Meditation App</button>
+        <button onclick="window.location.href='review.html'">Give Feedback</button> 
+    </div>
+    
+
+    <section id="exerciseSection">
+        <h2 id="exerciseTitle"></h2>
+        <video id="exerciseVideo" controls>
+            <source id="videoSource" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <h3>Instructions</h3>
+        <ul id="exerciseInstructions"></ul>
+    </section>
+
+    <script>
+        const exercises = [
+            { 
+                title: "Breathing Exercise", 
+                video: "breath.mp4", 
+                instructions: [
+                    "Find a comfortable position: Sit or lie down.",
+                    "Close your eyes: Take a moment to relax.",
+                    "Inhale deeply through your nose: Count to four.",
+                    "Hold your breath: Pause for a count of four.",
+                    "Exhale slowly through your mouth: Release for six seconds.",
+                    "Repeat this cycle for five minutes.",
+                    "Focus on your breath and let thoughts pass.",
+                    "Feel the air entering and leaving your body.",
+                    "Relax your shoulders: Release tension as you breathe.",
+                    "Gradually return to your surroundings: Open your eyes when ready."
+                ],
+                emoji: "\u{1F9D8}"
+            },
+            { 
+                title: "Relax Ears", 
+                video: "ears.mp4", 
+                instructions: [
+                    "Find a comfortable position.",
+                    "Close your eyes and focus on your breath.",
+                    "Listen to the sounds around you.",
+                    "Let go of any tension in your ears.",
+                    "Stay present for a few minutes.",
+                    "Notice the rhythm of your breathing.",
+                    "Pay attention to any background noises.",
+                    "Imagine each sound as a wave washing over you.",
+                    "Visualize your ears relaxing with each breath out.",
+                    "If your mind wanders, gently bring it back to the sounds."
+                ],
+                emoji: "\u{1F442}"
+            },
+            { 
+                title: "Relax Nose", 
+                video: "nose.mp4", 
+                instructions: [
+                    "Find a comfortable seated position.",
+                    "Focus on your breath through your nose.",
+                    "Inhale slowly and deeply.",
+                    "Exhale gently through your nose.",
+                    "Pay attention to the sensations of air.",
+                    "If distractions arise, return to your breath."
+                ],
+                emoji: "\u{1F443}"
+            },
+            { 
+                title: "Relax Eyes", 
+                video: "eyes.mp4", 
+                instructions: [
+                    "Find a comfortable position",
+                    "Close your eyes gently and take a deep breath",
+                    "Focus on the sensations around your eyes",
+                    "Relax the muscles in your face and jaw",
+                    "Visualize a soft, warm light around your eyes",
+                    "Imagine that light gently soothing your eyes",
+                    "Take a moment to notice any tension, and let it go",
+                    "If your mind drifts, gently guide it back to your breath",
+                    "Inhale deeply and feel your eyelids getting heavier",
+                    "Exhale slowly and release any remaining tension",
+                    "Picture each breath as a wave calming your eyes",
+                    "Allow yourself to be present in the moment",
+                    "Let go of distractions and simply be",
+                    "When you feel ready, gently open your eyes and stretch",
+                ],
+                emoji: "\u{1F440}"
+            },
+            { 
+                title: "Relax Hands", 
+                video: "hands.mp4", 
+                instructions: [
+                    "Find a comfortable position",
+                    "Close your eyes and take a deep breath in through your nose",
+                    "Focus on your hands and how they feel",
+                    "Consciously relax any tension in your hands",
+                    "Visualize warmth enveloping your hands",
+                    "Breathe into your hands, feeling energy flow in",
+                    "Explore sensations in your hands—temperature and texture",
+                    "Reflect on all your hands do for you, feeling gratitude",
+                    "If your mind wanders, bring focus back to your hands",
+                    "Gradually deepen your inhales and exhales",
+                    "When ready, gently wiggle your fingers to awaken them",
+                    "Slowly open your eyes when you're ready",
+                    "Notice how you feel and appreciate the calmness",
+                ],
+                emoji: "\u{270B}"
+            },
+            { 
+                title: "Relax Legs", 
+                video: "legs.mp4", 
+                instructions: [
+                    "Find a comfortable position for your legs",
+                    "Close your eyes and take a deep breath in through your nose",
+                    "Exhale slowly through your mouth",
+                    "Bring awareness to your legs and how they feel",
+                    "Consciously relax any tension in your legs",
+                    "Visualize warm, grounding energy flowing into your legs",
+                    "Focus on the sensations in your legs",
+                    "Practice mindfulness; redirect wandering thoughts",
+                    "Breathe into your legs, feeling calmness fill them",
+                    "Reflect on your legs' strength and express gratitude",
+                    "Gradually deepen your inhales and exhales",
+                    "Gently move your toes and feet to awaken them",
+                    "Slowly open your eyes when you're ready",
+                    "Reflect on how you feel after the meditation",
+                ],
+                emoji: "\u{1F9B5}"
+            },
+        ];
+
+        const dropdown = document.getElementById("exerciseDropdown");
+        const exerciseSection = document.getElementById("exerciseSection");
+        const exerciseTitle = document.getElementById("exerciseTitle");
+        const exerciseVideo = document.getElementById("exerciseVideo");
+        const videoSource = document.getElementById("videoSource");
+        const exerciseInstructions = document.getElementById("exerciseInstructions");
+        const secondImage = document.getElementById("secondImage");
+
+        exercises.forEach(exercise => {
+            const div = document.createElement("div");
+            div.textContent = `${exercise.emoji} ${exercise.title}`;
+            div.onclick = () => selectExercise(exercise);
+            dropdown.appendChild(div);
+        });
+
+        function toggleDropdown() {
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        function selectExercise(exercise) {
+            document.querySelector('h1').style.display = 'none';
+            document.querySelector('.description').style.display = 'none';
+
+            exerciseTitle.textContent = exercise.title;
+            videoSource.src = exercise.video;
+            exerciseVideo.load();
+            exerciseVideo.play();
+
+            exerciseInstructions.innerHTML = "";
+            exercise.instructions.forEach(instr => {
+                const li = document.createElement('li');
+                li.textContent = instr;
+                exerciseInstructions.appendChild(li);
+            });
+
+            exerciseSection.style.display = "block"; 
+            dropdown.style.display = "none"; 
+
+            showInstructions(); 
+            secondImage.style.display = "block"; 
+        }
+
+        function showInstructions() {
+            const totalInstructions = exerciseInstructions.children.length;
+            const instructionDuration = 8;
+
+            let currentInstruction = 0;
+
+            const interval = setInterval(() => {
+                if (currentInstruction < totalInstructions) {
+                    exerciseInstructions.children[currentInstruction].classList.add('show');
+                    exerciseInstructions.style.backgroundColor = getRandomColor(); 
+                    currentInstruction++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, instructionDuration * 1000);
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('button') && dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            }
+        };
+        
+    </script>
+</body>
+</html>

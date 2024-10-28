@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(245, 210, 215);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        h1 {
+            font-size: 5em;
+            margin-bottom: 30px;
+            color: rgb(67, 67, 233);
+        }
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .star {
+            font-size: 3em;
+            color: #ccc;
+            cursor: pointer;
+        }
+        .star.selected {
+            color: gold;
+        }
+        .review-box {
+            margin-top: 20px;
+        }
+        .submit-btn {
+            margin-top: 20px;
+        }
+        .alert {
+            display: none;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5em; /* Reduce font size for tablets */
+            }
+            .star {
+                font-size: 2.5em; /* Smaller star size for tablets */
+            }
+            .review-box {
+                margin-top: 15px;
+            }
+            .submit-btn {
+                width: 100%; /* Full width button for tablets */
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2.5em; /* Further reduce font size for mobile */
+            }
+            .star {
+                font-size: 2em; /* Smaller star size for mobile */
+            }
+            .review-box {
+                margin-top: 10px;
+            }
+            .submit-btn {
+                width: 100%; /* Full width button for mobile */
+                padding: 15px; /* Increase padding for easier clicking */
+            }
+            .alert {
+                font-size: 0.9em; /* Slightly smaller font size for alerts */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Feedback</h1>
+        <div class="text-center">
+            <h3>Rate Us</h3>
+            <div class="star-rating">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <input type="hidden" id="rating" value="0">
+        </div>
+        <div class="review-box">
+            <h3 class="text-center">Leave a Review</h3>
+            <textarea id="reviewText" class="form-control" rows="4" placeholder="Write your review here..."></textarea>
+        </div>
+        <button class="btn btn-primary submit-btn" id="submitReview">Submit Review</button>
+        <div class="alert alert-success" id="successMessage"></div>
+
+        <div class="text-center mt-3">
+            <a href="admin.html" class="btn btn-secondary">Admin Page</a>
+        </div>
+    </div>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('rating');
+        const reviewText = document.getElementById('reviewText');
+        const submitButton = document.getElementById('submitReview');
+        const successMessage = document.getElementById('successMessage');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const value = star.getAttribute('data-value');
+                ratingInput.value = value;
+
+                stars.forEach(s => {
+                    s.classList.remove('selected');
+                });
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add('selected');
+                }
+            });
+        });
+
+        submitButton.addEventListener('click', () => {
+            const rating = ratingInput.value;
+            const review = reviewText.value;
+
+            if (rating === "0" || review.trim() === "") {
+                alert("Please provide a rating and a review.");
+                return;
+            }
+
+            const feedback = JSON.parse(localStorage.getItem('adminFeedback')) || [];
+            feedback.push({ rating, review });
+            localStorage.setItem('adminFeedback', JSON.stringify(feedback));
+
+            successMessage.innerText = `Thank you for your feedback! You rated us ${rating} stars.`;
+            successMessage.style.display = 'block';
+
+            // Clear fields
+            ratingInput.value = "0";
+            reviewText.value = "";
+            stars.forEach(s => s.classList.remove('selected'));
+        });
+    </script>
+</body>
+</html>

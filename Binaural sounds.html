@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binaural Sounds</title>
+    <style>
+        body {
+            background-image: url('BinauralImage.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .card {
+            background-color: rgba(122, 179, 196, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: auto;
+            padding: 30px;
+        }
+
+        h1 {
+            color: palevioletred;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .description {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: wheat;
+        }
+        
+        audio{
+            width:100%;
+        }
+        .instructions {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #333;
+            display: none;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        select {
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: border-color 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        select:hover {
+            border-color: palevioletred;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            border: none;
+            margin-top: 20px;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #feb47b, #ff7e5f);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 20px;
+                height: auto; 
+                min-height: 100vh; 
+                display: block; 
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .description {
+                font-size: 1em;
+            }
+
+            select {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .btn-primary {
+                font-size: 1em;
+                padding: 8px 16px;
+            }
+
+            .instructions {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card mt-5">
+        <h1 class="text-center">Binaural Sounds</h1>
+        <div class="description text-center mb-3">
+            Enhance your meditation experience and promote relaxation. 
+            Choose a binaural sound and follow the instructions or just listen.
+        </div>
+        
+        <select id="binaural-sounds" onchange="playSound()">
+            <option value="select">Select Sound</option>
+            <option value="focus">Focus Enhancement</option>
+            <option value="relaxation">Deep Relaxation</option>
+            <option value="meditation">Meditation Boost</option>
+            <option value="sleep">Sleep Induction</option>
+            <option value="energy">Energy Boost</option>
+            <option value="balance">Emotional Balance</option>
+        </select>
+        
+        <audio id="audioPlayer" controls style="display: none;"></audio>
+        <div class="instructions" id="soundInstructions"></div>
+        
+        <button class="btn-primary mt-3" onclick="location.href='Main.html'">Back to Menu</button>
+    </div>
+
+    <script>
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function playSound() {
+            const soundSelect = document.getElementById("binaural-sounds");
+            const audioPlayer = document.getElementById("audioPlayer");
+            const instructions = document.getElementById("soundInstructions");
+
+            let specificInstructions = [];
+
+            if (soundSelect.value === "focus") {
+                audioPlayer.src = "focus.mp3"; 
+                specificInstructions = [
+                    "Focus deeply on your tasks.",
+                    "Use in quiet environments for best results.",
+                    "Try to eliminate distractions around you.",
+                    "Binaural beats can enhance cognitive function.",
+                    "Combine with light background noise for better focus.",
+                    "Maintain a consistent study schedule.",
+                    "Stay hydrated while you work.",
+                    "Take breaks to refresh your mind.",
+                    "Limit digital distractions during focus sessions.",
+                    "Reflect on your progress at the end of the day."
+                ];
+            } else if (soundSelect.value === "relaxation") {
+                audioPlayer.src = "relaxation.mp3"; 
+                specificInstructions = [
+                    "Let go of tension and stress.",
+                    "Ideal for winding down at the end of the day.",
+                    "Perfect for yoga or deep breathing exercises.",
+                    "Create a calm environment around you.",
+                    "Consider dimming the lights for added relaxation.",
+                    "Use a comfortable chair or mat.",
+                    "Incorporate gentle stretches to enhance relaxation.",
+                    "Savor a cup of herbal tea afterwards.",
+                    "Reflect on positive experiences during the session.",
+                    "Write down your thoughts after listening."
+                ];
+            } else if (soundSelect.value === "meditation") {
+                audioPlayer.src = "meditation.mp3"; 
+                specificInstructions = [
+                    "Focus on your breath and clear your mind.",
+                    "Use in your meditation practice for deeper insights.",
+                    "Visualize calmness while listening.",
+                    "Perfect for morning routines or evening wind down.",
+                    "Combine with guided meditation for added benefits.",
+                    "Explore different meditation postures.",
+                    "Set a timer to avoid checking the clock.",
+                    "Keep a journal to track your meditation progress.",
+                    "Start with short sessions and gradually increase time.",
+                    "Embrace the silence between thoughts."
+                ];
+            }else if (soundSelect.value === "sleep") {
+                audioPlayer.src = "sleep.mp3"; 
+                specificInstructions = [
+                        "Listen in a dark, quiet environment.",
+                        "Use comfortable bedding.",
+                        "Practice deep breathing.",
+                        "Avoid screen time before bed.",
+                        "Consider using a sleep mask.",
+                        "Create a calming bedtime routine.",
+                        "Keep the room cool and dark.",
+                        "Limit caffeine intake in the evening."
+                ];
+            }else if (soundSelect.value === "energy") {
+                audioPlayer.src = "energy.mp3"; 
+                specificInstructions = [
+                        "Listen during physical activities.",
+                        "Stay active and engaged.",
+                        "Combine with motivational affirmations.",
+                        "Visualize energizing scenarios.",
+                        "Engage in light stretching or movement.",
+                        "Create a motivating environment.",
+                        "Take breaks to refresh your energy.",
+                        "Embrace a positive mindset."
+                ];
+            }else if (soundSelect.value === "balance") {
+                audioPlayer.src = "balance.mp3"; 
+                specificInstructions = [
+                        "Practice mindfulness exercises.",
+                        "Engage in self-reflection.",
+                        "Embrace the present moment.",
+                        "Visualize emotional harmony.",
+                        "Consider journaling your thoughts.",
+                        "Share your feelings with someone you trust.",
+                        "Practice gratitude for life's balance.",
+                        "Spend time in nature to regain balance."
+                ];
+            } else {
+                audioPlayer.src = "";
+                instructions.style.display = "none"; 
+            }
+
+            if (audioPlayer.src) {
+                audioPlayer.style.display = "block"; 
+                audioPlayer.play();
+                displayInstructions(specificInstructions);
+            } else {
+                audioPlayer.style.display = "none"; 
+            }
+        }
+
+        function displayInstructions(specificInstructions) {
+            const instructions = document.getElementById("soundInstructions");
+            let index = 0;
+
+            function showNextInstruction() {
+                if (index < specificInstructions.length) {
+                    instructions.innerHTML = `<strong>${specificInstructions[index]}</strong>`;
+                    instructions.style.backgroundColor = getRandomColor();
+                    instructions.style.display = "block";
+                    index++;
+                    setTimeout(showNextInstruction, 7000); 
+                } 
+            }
+            showNextInstruction();
+        }
+    </script>
+</body>
+</html>

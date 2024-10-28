@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Feedback Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: wheat;
+        }
+        h1 {
+            color: palevioletred;
+            font-size: 3em; /* Base font size */
+        }
+        .feedback-table {
+            margin-top: 20px;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em; /* Reduce font size for tablets */
+            }
+            .feedback-table {
+                font-size: 0.9em; /* Smaller font size for the table on tablets */
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2em; /* Further reduce font size for mobile */
+            }
+            .feedback-table {
+                font-size: 0.8em; /* Smaller font size for the table on mobile */
+            }
+            .table th, .table td {
+                padding: 0.5rem; /* Reduce padding for table cells on mobile */
+            }
+            .btn {
+                width: 100%; /* Full width button for mobile */
+                margin-top: 15px; /* Space above the button */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Feedback from Users</h1>
+        <table class="table table-bordered feedback-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Rating</th>
+                    <th>Review</th>
+                </tr>
+            </thead>
+            <tbody id="feedbackItems"></tbody>
+        </table>
+        <div class="text-center">
+            <a href="review.html" class="btn btn-secondary">Back to Feedback Page</a>
+            <button class="btn btn-danger" id="clearFeedback">Clear All Feedback</button>
+        </div>
+    </div>
+
+    <script>
+        const feedbackItems = document.getElementById('feedbackItems');
+        const clearFeedbackButton = document.getElementById('clearFeedback');
+ 
+        function loadFeedback() {
+            const feedback = JSON.parse(localStorage.getItem('adminFeedback')) || [];
+            feedbackItems.innerHTML = feedback.map((item, index) => 
+                `<tr>
+                    <td>${index + 1}</td>
+                    <td>${item.rating} stars</td>
+                    <td>${item.review}</td>
+                </tr>`).join('');
+        }
+
+        function clearFeedback() {
+            localStorage.removeItem('adminFeedback');
+            feedbackItems.innerHTML = ''; // Clear the displayed feedback
+            alert("All feedback has been cleared.");
+        }
+
+        // Load feedback on page load
+        window.onload = loadFeedback;
+
+        // Clear feedback button event
+        clearFeedbackButton.addEventListener('click', clearFeedback);
+    </script>
+</body>
+</html>
