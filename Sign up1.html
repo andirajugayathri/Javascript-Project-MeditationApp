@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Meditation App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         body {
             background-image: url('ind1.png');
@@ -19,7 +19,7 @@
         }
         .signup-container {
             background-image: url("ind2.png");
-            opacity:0.7;
+            opacity: 0.7;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -33,6 +33,17 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+            position: relative;
+        }
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
         }
         button {
             padding: 10px;
@@ -77,16 +88,41 @@
             <input type="email" id="email" placeholder="Email" required 
                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
                    title="Please enter a valid email address.">
-            <input type="password" id="password" placeholder="Password" required 
-                   pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}" 
-                   title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.">
-            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <div class="password-container">
+                <input type="password" id="password" placeholder="Password" required 
+                       pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}" 
+                       title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.">
+                <span class="toggle-password" onclick="togglePassword('password')">
+                    <i class="fas fa-eye" id="eye-icon-password"></i>
+                </span>
+            </div>
+            <div class="password-container">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                <span class="toggle-password" onclick="togglePassword('confirmPassword')">
+                    <i class="fas fa-eye" id="eye-icon-confirm"></i>
+                </span>
+            </div>
             <button type="submit">Sign Up</button>
         </form>
         <p>Already have an account? <a href="index.html">Login</a></p>
     </div>
 
     <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.firstElementChild; // Select the icon correctly
+
+            if (input.type === "password") {
+                input.type = "text";  
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye"); 
+            } else {
+                input.type = "password"; 
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash"); 
+            }
+        }
+
         document.getElementById('signupForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value;

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Meditation App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         body {
             background-image: url('ind1.png');
@@ -20,15 +20,12 @@
             background-size: cover; 
             background-position: center; 
         }
-        h2{
+        h2 {
             font-size: 2.5em;
-           
         }
         a {
-             text-decoration: none; /* Remove underlines from all links */
-              /* Optional: set a color for the links */
+            text-decoration: none;
         }
-
 
         @keyframes zoomIn {
             0% {
@@ -80,7 +77,7 @@
         }
         #submit {
             padding: 10px;
-            background-color:black;
+            background-color: black;
             color: white;
             border: none;
             border-radius: 5px;
@@ -99,8 +96,17 @@
         .header-buttons button {
             margin-left: 10px;
         }
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
 
-       
         @media (max-width: 576px) {
             body {
                 background-size: cover; 
@@ -147,7 +153,12 @@
             <input type="email" id="loginEmail" placeholder="Email" required 
                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
                    title="Please enter a valid email address.">
-            <input type="password" id="loginPassword" placeholder="Password" required>
+            <div class="password-container">
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <span class="toggle-password" onclick="togglePassword('loginPassword')">
+                    <i class="fas fa-eye" id="eye-icon-login"></i>
+                </span>
+            </div>
             <button type="submit" id="submit">Login</button>
         </form>
         <p>Don't have an account? <a href="Sign up1.html" id="signUpLink">Sign Up</a></p>
@@ -204,6 +215,21 @@
                 alert("No account found with this email.");
             }
         });
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling.firstElementChild;
+
+            if (input.type === "password") {
+                input.type = "text";  
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash"); 
+            } else {
+                input.type = "password"; 
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye"); 
+            }
+        }
     </script>
 </body>
 </html>
