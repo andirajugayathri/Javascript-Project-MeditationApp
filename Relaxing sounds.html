@@ -111,8 +111,8 @@
                 <option value="calming music.mp3">Calming Music</option>
                 <option value="rain.mp3">Rain Sounds</option>
                 <option value="forest.mp3">Forest Ambience</option>
-                <option value="fireplace.mp3">Crackling Fireplace</option>
-                <option value="birdsong.mp3">Birdsong</option>
+                <option value="fire.mp3">Crackling Fireplace</option>
+                <option value="bird.mp3">Birdsong</option>
                 <option value="gentle piano.mp3">Gentle Piano</option>
             </select>
             <audio id="audioPlayer" controls style="display: none;"></audio>
@@ -138,11 +138,23 @@
 
             instructions.innerHTML = ""; 
 
-            if (soundSelect.value === "oceanwave.mp3") {
+            if (soundSelect.value) {
                 audioPlayer.src = soundSelect.value;
                 audioPlayer.style.display = "block";
                 audioPlayer.play();
-                const instructionsList = [
+
+                const instructionsList = getInstructionsForSound(soundSelect.value);
+                displayInstructions(instructionsList);
+            } else {
+                audioPlayer.pause();
+                audioPlayer.src = "";
+                audioPlayer.style.display = "none";
+            }
+        }
+
+        function getInstructionsForSound(sound) {
+            const instructionsMap = {
+                "oceanwave.mp3": [
                     "Immerse yourself in the calming sound of ocean waves.",
                     "Great for meditation and relaxation.",
                     "Helps to reduce stress and anxiety.",
@@ -153,13 +165,8 @@
                     "Enhance your focus while working.",
                     "Perfect for bedtime relaxation.",
                     "Allow yourself to simply be in the moment."
-                ];
-                displayInstructions(instructionsList);
-            } else if (soundSelect.value === "White noise.mp3") {
-                audioPlayer.src = soundSelect.value;
-                audioPlayer.style.display = "block";
-                audioPlayer.play();
-                const instructionsList = [
+                ],
+                "White noise.mp3": [
                     "Creates a consistent sound environment.",
                     "Helps to block out distractions and improve focus.",
                     "Useful for sleeping or calming infants.",
@@ -170,13 +177,8 @@
                     "Great for studying in noisy places.",
                     "Helps reduce anxiety in stressful situations.",
                     "Encourages a calm atmosphere wherever you are."
-                ];
-                displayInstructions(instructionsList);
-            } else if (soundSelect.value === "calming music.mp3") {
-                audioPlayer.src = soundSelect.value;
-                audioPlayer.style.display = "block";
-                audioPlayer.play();
-                const instructionsList = [
+                ],
+                "calming music.mp3": [
                     "Soft melodies designed to soothe your mind.",
                     "Perfect for yoga or mindfulness practices.",
                     "Can help improve concentration and creativity.",
@@ -187,13 +189,8 @@
                     "Helps set the mood for relaxation.",
                     "Encourages positive thoughts and feelings.",
                     "Allows you to connect with your emotions."
-                ];
-                displayInstructions(instructionsList);
-            } else if (soundSelect.value === "rain.mp3") {
-                audioPlayer.src = soundSelect.value;
-                audioPlayer.style.display = "block";
-                audioPlayer.play();
-                const instructionsList = [
+                ],
+                "rain.mp3": [
                     "Listen to the gentle sound of raindrops.",
                     "Great for sleeping and relaxation.",
                     "Creates a cozy atmosphere.",
@@ -204,13 +201,8 @@
                     "Let the rain wash your worries away.",
                     "Imagine yourself in a serene environment.",
                     "Take a moment to breathe deeply."
-                ];
-                displayInstructions(instructionsList);
-            } else if (soundSelect.value === "forest.mp3") {
-                audioPlayer.src = soundSelect.value;
-                audioPlayer.style.display = "block";
-                audioPlayer.play();
-                const instructionsList = [
+                ],
+                "forest.mp3": [
                     "Immerse yourself in the sounds of a forest.",
                     "Ideal for grounding and connecting with nature.",
                     "Enhances relaxation during meditation.",
@@ -221,13 +213,8 @@
                     "Feel the embrace of nature.",
                     "Great for visualizing calm landscapes.",
                     "Take a moment to be present."
-                ];
-                displayInstructions(instructionsList);
-            } else if (soundSelect.value === "fireplace.mp3") {
-                audioPlayer.src = soundSelect.value;
-                audioPlayer.style.display = "block";
-                audioPlayer.play();
-                const instructionsList = [
+                ],
+                "fire.mp3": [
                     "Enjoy the warm crackling of a fireplace.",
                     "Creates a cozy and inviting atmosphere.",
                     "Perfect for relaxation on a cold day.",
@@ -238,13 +225,8 @@
                     "Ideal for unwinding after a long day.",
                     "Let the warmth envelop you.",
                     "Take a moment to reflect."
-                ];
-                displayInstructions(instructionsList);
-            } else if (soundSelect.value === "birdsong.mp3") {
-                audioPlayer.src = soundSelect.value;
-                audioPlayer.style.display = "block";
-                audioPlayer.play();
-                const instructionsList = [
+                ],
+                "bird.mp3": [
                     "Delight in the cheerful sounds of birds.",
                     "Great for uplifting your mood.",
                     "Enhances outdoor or indoor relaxation.",
@@ -255,30 +237,21 @@
                     "Connect with nature's beauty.",
                     "Great for background noise while working.",
                     "Take a moment to enjoy the beauty of life."
-                ];
-                displayInstructions(instructionsList);
-            } else if (soundSelect.value === "gentle piano.mp3") {
-                audioPlayer.src = soundSelect.value;
-                audioPlayer.style.display = "block";
-                audioPlayer.play();
-                const instructionsList = [
+                ],
+                "gentle piano.mp3": [
                     "Listen to soft piano melodies.",
-                    "Perfect for relaxation and reflection.",
-                    "Ideal for creating a calm atmosphere.",
-                    "Encourages emotional well-being.",
-                    "Great for background music while studying.",
-                    "Enhances meditation and mindfulness practices.",
-                    "Let the music guide your thoughts.",
-                    "Take a moment to unwind and breathe.",
-                    "Encourages positive emotions.",
-                    "Perfect for winding down at the end of the day."
-                ];
-                displayInstructions(instructionsList);
-            } else {
-                audioPlayer.pause();
-                audioPlayer.src = "";
-                audioPlayer.style.display = "none";
-            }
+                    "Perfect for studying or working.",
+                    "Great for background music during meals.",
+                    "Enhances relaxation and focus.",
+                    "Ideal for creating a peaceful atmosphere.",
+                    "Encourages creativity and inspiration.",
+                    "Let the music take you on a journey.",
+                    "Helps soothe your mind and heart.",
+                    "Encourages mindfulness and presence.",
+                    "Take a moment to reflect on your thoughts."
+                ]
+            };
+            return instructionsMap[sound] || [];
         }
 
         function displayInstructions(instructionsList) {
@@ -287,7 +260,7 @@
 
             function showNextInstruction() {
                 if (index < instructionsList.length) {
-                    instructions.innerHTML = <strong>${instructionsList[index]}</strong>;
+                    instructions.innerHTML = `<strong>${instructionsList[index]}</strong>`;
                     instructions.style.backgroundColor = getRandomColor(); 
                     instructions.style.display = "block";
                     index++;
