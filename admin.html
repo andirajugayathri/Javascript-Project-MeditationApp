@@ -11,35 +11,35 @@
         }
         h1 {
             color: palevioletred;
-            font-size: 3em; /* Base font size */
+            font-size: 3em; 
         }
         .feedback-table {
             margin-top: 20px;
         }
 
-        /* Media Queries for Responsiveness */
+        
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5em; /* Reduce font size for tablets */
+                font-size: 2.5em; 
             }
             .feedback-table {
-                font-size: 0.9em; /* Smaller font size for the table on tablets */
+                font-size: 0.9em; 
             }
         }
 
         @media (max-width: 576px) {
             h1 {
-                font-size: 2em; /* Further reduce font size for mobile */
+                font-size: 2em; 
             }
             .feedback-table {
-                font-size: 0.8em; /* Smaller font size for the table on mobile */
+                font-size: 0.8em; 
             }
             .table th, .table td {
-                padding: 0.5rem; /* Reduce padding for table cells on mobile */
+                padding: 0.5rem; 
             }
             .btn {
-                width: 100%; /* Full width button for mobile */
-                margin-top: 15px; /* Space above the button */
+                width: 100%; 
+                margin-top: 15px; 
             }
         }
     </style>
@@ -79,14 +79,14 @@
 
         function clearFeedback() {
             localStorage.removeItem('adminFeedback');
-            feedbackItems.innerHTML = ''; // Clear the displayed feedback
+            feedbackItems.innerHTML = ''; 
             alert("All feedback has been cleared.");
         }
 
-        // Load feedback on page load
+        
         window.onload = loadFeedback;
 
-        // Clear feedback button event
+       
         clearFeedbackButton.addEventListener('click', clearFeedback);
     </script>
 </body>
